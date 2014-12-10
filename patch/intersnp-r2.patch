@@ -1,0 +1,16 @@
+*** a/INTERSNP_1.14/intersnp.cpp	2014-12-10 10:28:28.535500943 +0100
+--- b/INTERSNP_1.14/intersnp.cpp	2014-12-10 10:29:55.795160177 +0100
+*************** struct HAPINFO haplo_em(double casecount
+*** 6005,6010 ****
+--- 6005,6015 ----
+  				fprintf(file1,"%s %1.3f %d\n",hapstring,r2,myswitch);
+  				//fclose(file1);
+  			}
++             else if(dohapfile >= 0 && dohapfile < 1 && r2 >= dohapfile)
++             {
++                 fprintf(file1,"%s %1.3f %d\n",hapstring,r2,myswitch);
++             }
++ 
+  		}
+  	}//snp == 2
+  	else if(snps==3)
