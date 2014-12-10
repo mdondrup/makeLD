@@ -19,4 +19,5 @@ Patching Intersnp
 ==========
 
 Intersnp by default doesn't allow to controll the r2 cutoff for generating the LD file, it is either all, but with more columns or 0.5. The patch in patch/intersnp-r2.patch allows to choose the r2 cutoff by defining a value in the intersnp control file sfile.txt. Setting DOHAPFILE to a value [0,1[ and it will be used as a cutoff.
+
 `DOHAPFILE 0.1`
