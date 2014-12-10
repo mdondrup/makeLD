@@ -1,0 +1,51 @@
+#export PERL5LIB=~/bin/vcftools_0.1.7/perl/
+#PWD=pwd
+#DIR=`basename $(PWD)`
+mirror=ftp://ftp.1000genomes.ebi.ac.uk/vol1
+ftpurl1=$(mirror)/ftp/release/20110521/ALL.chr
+ftpurl2=.phase1_release_v3.20101123.snps_indels_svs.genotypes.vcf.gz
+#tabix -fh $ftpurl > genotypes.vcf
+POPULATION=EUR
+
+intersnp : intersnpoutputhapfile.txt
+
+plink : plinkoutput.ld
+
+download : genotypes.vcf
+
+
+panel :
+	grep -e$(POPULATION) ../phase1_integrated_calls.20101123.ALL.panel | cut -f1 > panel
+
+genotypes.vcf :
+	wget -c $(ftpurl1)`basename $(CURDIR)`$(ftpurl2) -O genotypes.vcf.gz
+	gunzip genotypes.vcf.gz
+
+genotypes.subset.vcf : genotypes.vcf panel
+	vcf-cut.pl -c panel genotypes.vcf > genotypes.subset.vcf 
+
+plinkformat.tfam plinkformat.tped : genotypes.subset.vcf
+	vcftools --vcf genotypes.subset.vcf --plink-tped --out plinkformat
+
+plinkBEDformat.bed plinkBEDformat.fam : plinkformat.tfam 
+	plink --tfile plinkformat --make-bed --out plinkBEDformat --noweb --maf 0.002 --hwe 0.001
+	mv plinkBEDformat.fam plinkBEDformat.fam.tmp
+	cat plinkBEDformat.fam.tmp | sed 's/-9/1/g' > plinkBEDformat.fam
+
+intersnpoutputhapfile.txt : plinkBEDformat.bed
+	time intersnp sfile.txt
+
+hapmapFormat.txt : intersnpoutputhapfile.txt
+	reformatIntersnpVcf.pl -v genotypes.subset.vcf -p EUR intersnpoutputhapfile.txt > hapmapFormat.txt
+
+plinkoutput.ld : plinkBEDformat.bed
+	time plink --bfile plinkBEDformat  --ld-window-kb 1000 --ld-window 99999  --out plinkoutput --noweb 
+
+clean :
+	-$(RM) panel plinkformat.* plinkBEDformat.* genotypes.subset.vcf*  intersnpoutput* plinkoutput*
+
+realclean : clean
+	-$(RM) genotypes.vcf*
+
+
+
