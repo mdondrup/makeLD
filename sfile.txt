@@ -1,0 +1,16 @@
+Keyword	Parameter	Comment
+
+TPED	 ./plinkformat.tped	//
+TFAM	 ./plinkformat.tfam	//
+STOREALL	1		
+BFILE       ./plinkBEDformat         //Path to SNP/Pedigree/Genotype files (.fam/.bim/.bed) 
+HWE_P_CONTROL  0                        //this can be done in plink when producing bed files...
+MAF  0                                  //this can be done in plink when producing bed files...
+TWO_MARKER 1                            //pairwise comparison
+TEST 13                                 //specific to running this LD calculations
+QT 1                                    //specific to running this LD calculations
+HAPLO 1                                 //specific to running this LD calculations
+HAPLO_DIST 1000000                      //max distance between pairs of SNPs for calculations
+DOHAPFILE 0.1                             //Produce LD file with r2 cutoff 0.1 
+OUTPUTNAME  ./intersnpoutput	        //Outfile
+
