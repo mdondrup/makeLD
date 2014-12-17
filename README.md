@@ -3,7 +3,7 @@ makeLD
 A GNU make file to calculate LD from 1000 genomes data (phase 1 release 3).
 Note: I have no clue if that could work for other phases or how to adapt the code. Just drop me a note if you find it out.
 
-Depencies
+Dependencies
 ==========
 The binaries must be installed in your path
   * about 2TB of intermediate diskspace (for all chromosomes)
