@@ -50,8 +50,9 @@ Running the LD calculations
  
 Converting hapmap output to HDF5 format
 ===========
-HDF5 is a highly flexible and efficient format to store large data (~1.2GB, all chromosomes at r2 cutoff >= 0.2).
-Conversion from Hapmap format to HDF5 format is done via a Java application. The link will appear here once I find it again ;P
+HDF5 is a highly flexible and efficient format to store large data (~2.2GB, all chromosomes at r2 cutoff >= 0.2).
+Conversion from Hapmap format to HDF5 format is done via a Java application. The java sources are here: https://github.com/mdondrup/ld2hdf5 need to install HDF5 sys-libraries on the local computer.
+Execute the conversion from the root directory where you ran make setup. Good Luck!
 
  
  
